@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://be5xnso5v3bau"]
+
+[ext_resource type="Script" path="res://wheels/player.gd" id="1_cb3c6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1i3ag"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_35ot5"]
+radius = 0.1
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_cb3c6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1i3ag")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -0.0102798, -0.999947, 0, 0.999947, -0.0102798, -0.0446938, -0.0196965, -1.47777)
+visible = false
+mesh = SubResource("CapsuleMesh_35ot5")
+skeleton = NodePath("../..")

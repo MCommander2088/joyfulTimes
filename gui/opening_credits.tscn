@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://buf1jix2r40xw"]
+
+[ext_resource type="Script" path="res://gui/opening_credits.gd" id="1_4hfv6"]
+
+[sub_resource type="SystemFont" id="SystemFont_nshfg"]
+font_names = PackedStringArray("Arial")
+
+[sub_resource type="LabelSettings" id="LabelSettings_jjs20"]
+font = SubResource("SystemFont_nshfg")
+font_size = 100
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dvntb"]
+
+[sub_resource type="Animation" id="Animation_e6d5r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["By MCommander2077"]
+}
+
+[sub_resource type="Animation" id="Animation_7oo5c"]
+resource_name = "author_show_hide"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 2.5, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["By MCommander2077", "press key to continue"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v7xws"]
+_data = {
+"RESET": SubResource("Animation_e6d5r"),
+"author_show_hide": SubResource("Animation_7oo5c")
+}
+
+[node name="OpeningCredits" type="Node2D"]
+script = ExtResource("1_4hfv6")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 82.0
+offset_top = 276.0
+offset_right = 1082.0
+offset_bottom = 389.0
+text = "By MCommander2077"
+label_settings = SubResource("LabelSettings_jjs20")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 1.43
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1044, 415)
+scale = Vector2(30.5, 28.5)
+energy = 1.43
+texture = SubResource("PlaceholderTexture2D_dvntb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v7xws")
+}
