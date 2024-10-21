@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://bswhnr2t731bh"]
 
 [ext_resource type="PackedScene" uid="uid://be5xnso5v3bau" path="res://wheels/player.tscn" id="1_heild"]
-[ext_resource type="Texture2D" uid="uid://ci66xsjn8dmyv" path="res://maps/t_demo1/meshtest.png" id="2_s40jf"]
+[ext_resource type="Texture2D" uid="uid://ci66xsjn8dmyv" path="res://maps/t_demo1_jt/meshtest.png" id="2_s40jf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_npk8f"]
 sky_top_color = Color(0.189116, 0.276784, 0.624366, 1)

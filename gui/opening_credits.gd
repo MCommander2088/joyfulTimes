@@ -9,4 +9,4 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey or event is InputEventMouseButton:
-		get_tree().change_scene_to_file("res://maps/t_demo1/t_demo1.tscn")
+		get_tree().change_scene_to_file("res://maps/t_demo1_jt/t_demo1_jt.tscn")

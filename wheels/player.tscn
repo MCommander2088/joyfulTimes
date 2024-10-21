@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://be5xnso5v3bau"]
+[gd_scene load_steps=5 format=3 uid="uid://be5xnso5v3bau"]
 
 [ext_resource type="Script" path="res://wheels/player.gd" id="1_cb3c6"]
+[ext_resource type="PackedScene" uid="uid://6km7ww2720qn" path="res://gui/testing/test_gui.tscn" id="2_ixajq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1i3ag"]
 
@@ -9,6 +10,8 @@ radius = 0.1
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_cb3c6")
+
+[node name="TestGui" parent="." instance=ExtResource("2_ixajq")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_1i3ag")
