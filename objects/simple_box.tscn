@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt5hig2qs5e6p"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1mip2"]
+rough = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6q4q"]
+albedo_color = Color(0.643137, 1, 1, 1)
+metallic = 0.4
+metallic_specular = 0.0
+roughness = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_4mi4r"]
+material = SubResource("StandardMaterial3D_v6q4q")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5spyu"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="SimpleBox" type="RigidBody3D"]
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_1mip2")
+gravity_scale = 0.6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_4mi4r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_5spyu")
