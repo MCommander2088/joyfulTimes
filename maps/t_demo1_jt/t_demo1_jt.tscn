@@ -1,21 +1,20 @@
-[gd_scene load_steps=12 format=3 uid="uid://bswhnr2t731bh"]
+[gd_scene load_steps=14 format=3 uid="uid://bswhnr2t731bh"]
 
 [ext_resource type="PackedScene" uid="uid://be5xnso5v3bau" path="res://wheels/player.tscn" id="1_heild"]
+[ext_resource type="Texture2D" uid="uid://ds1ksdykvn844" path="res://maps/t_demo1_jt/EveningSkyHDRI031B_2K-TONEMAPPED.jpg" id="1_va78t"]
 [ext_resource type="Texture2D" uid="uid://ci66xsjn8dmyv" path="res://maps/t_demo1_jt/meshtest.png" id="2_s40jf"]
-[ext_resource type="PackedScene" uid="uid://dt5hig2qs5e6p" path="res://objects/simple_box.tscn" id="3_nfqw6"]
+[ext_resource type="PackedScene" uid="uid://dt5hig2qs5e6p" path="res://objects/simple_box/simple_box.tscn" id="3_nfqw6"]
+[ext_resource type="PackedScene" uid="uid://cmndtb24cfoay" path="res://objects/apple/apple.tscn" id="5_vmy0x"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_npk8f"]
-sky_top_color = Color(0.189116, 0.276784, 0.624366, 1)
-sky_horizon_color = Color(0.543484, 0.643533, 0.927716, 1)
-ground_bottom_color = Color(0.285629, 0.244727, 0.197254, 1)
-ground_horizon_color = Color(0.545098, 0.643137, 0.929412, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_q2jgc"]
+panorama = ExtResource("1_va78t")
 
-[sub_resource type="Sky" id="Sky_hbg1h"]
-sky_material = SubResource("ProceduralSkyMaterial_npk8f")
+[sub_resource type="Sky" id="Sky_5mqrg"]
+sky_material = SubResource("PanoramaSkyMaterial_q2jgc")
 
 [sub_resource type="Environment" id="Environment_pft8w"]
 background_mode = 2
-sky = SubResource("Sky_hbg1h")
+sky = SubResource("Sky_5mqrg")
 glow_enabled = true
 glow_normalized = true
 fog_density = 0.0
@@ -44,7 +43,7 @@ roughness_texture_channel = 3
 environment = SubResource("Environment_pft8w")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, 0.609675, 0.792652, 0, -0.792652, 0.609675, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.982558, 0.185958, 0, -0.185958, 0.982558, 0, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_heild")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00376773, 1.84545, 0.276737)
@@ -74,7 +73,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4144, 0.502275, -4.3693)
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.482813, -4.69483)
 pixel_size = 0.01
-text = "如果这个游戏真的能发布，这个文本就会成为一个彩蛋"
+text = "如果这个游戏真的能发布，这个地图就会成为一个彩蛋"
 
 [node name="SimpleBox" parent="." instance=ExtResource("3_nfqw6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.306498, 2.86845, -4.26916)
+
+[node name="Apple" parent="." instance=ExtResource("5_vmy0x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20407, 0.815542, -3.06892)

@@ -3,6 +3,8 @@ extends CharacterBody3D
 @onready var Camera = $Camera3D
 @onready var RayCast = $Camera3D/RayCast3D
 @onready var TestingLabel = $TestGui/Label
+@onready var audioplayer1 = $PlayerUi/mouseclick
+@onready var audioplayer2 = $PlayerUi/mouserelease
 
 const SPEED = 3.0
 const JUMP_VELOCITY = 2.0
@@ -25,11 +27,16 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("action_pick"):
 		if is_catching:
+			audioplayer2.play()
+			if collider is RigidBody3D:
+				collider.simplebox_set_gravity_scale(collider.GRAVITY_SCALE)
 			collider = null
 			is_catching = not is_catching
-		elif RayCast.get_collider() != null and not "Ground" in RayCast.get_collider().name:
-			collider = RayCast.get_collider()
-			is_catching = not is_catching
+		elif RayCast.get_collider() != null:
+			if collider_statue(RayCast.get_collider()):
+				audioplayer1.play()
+				collider = RayCast.get_collider()
+				is_catching = not is_catching
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -75,6 +82,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	if is_catching:
+		if collider is RigidBody3D:
+			collider.simplebox_set_gravity_scale(0.0)
+		
+		var old_rotation:Vector3 = collider.rotation
 		# 获取摄像机的位置  
 		var camera_position = Camera.global_transform.origin  
 		  
@@ -85,10 +96,12 @@ func _physics_process(delta: float) -> void:
 		  
 		# 计算目标位置：摄像机位置 + 摄像机前方向量 * 距离  
 		var target_position = camera_position + camera_forward * pick_distance  
-		  
+		
+		var target_rotation:Vector3 = target_position-collider.position
+		
 		# 现在你可以使用target_position来做一些事情，比如移动一个节点到那里  
 		# 例如，如果你有一个StaticBody3D节点，你可以这样设置它的位置：  
-		collider.global_transform.origin = target_position
+		collider.global_transform.origin += (target_position - collider.global_transform.origin)*0.1
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -101,3 +114,9 @@ func b2i(boolvar) -> int:#bool to int
 		return 1
 	else:
 		return 0
+
+func collider_statue(collider):
+	if collider != null and not collider is CharacterBody3D and not collider is StaticBody3D:
+		return true
+	else:
+		return false

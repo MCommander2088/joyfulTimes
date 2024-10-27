@@ -1,0 +1,109 @@
+[gd_scene load_steps=10 format=3 uid="uid://c01y6v0a3xeyu"]
+
+[ext_resource type="AudioStream" uid="uid://cwdelt3tx42mw" path="res://gui/kenney_ui-audio/Audio/mouseclick1.ogg" id="1_5xlwg"]
+[ext_resource type="Script" path="res://gui/player_ui/player_ui.gd" id="1_lpwoj"]
+[ext_resource type="Texture2D" uid="uid://yn6m2jw8jyqy" path="res://AndroidSurporting/Textures/RoundShape-White.png" id="3_wgp0t"]
+
+[sub_resource type="SystemFont" id="SystemFont_1sjjy"]
+font_names = PackedStringArray("Arial")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_r73q7"]
+font = SubResource("SystemFont_1sjjy")
+font_size = 30
+
+[sub_resource type="Animation" id="Animation_6tvu5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PickLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_erfr3"]
+resource_name = "pick_hide"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PickLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5wiic"]
+resource_name = "pick_show"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PickLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1.5),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5lij8"]
+_data = {
+"RESET": SubResource("Animation_6tvu5"),
+"pick_hide": SubResource("Animation_erfr3"),
+"pick_show": SubResource("Animation_5wiic")
+}
+
+[node name="PlayerUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lpwoj")
+
+[node name="mouseclick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_5xlwg")
+
+[node name="mouserelease" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_5xlwg")
+
+[node name="PickLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 890.0
+offset_top = 592.0
+offset_right = 1132.0
+offset_bottom = 627.0
+text = "Press E to pick up"
+label_settings = SubResource("LabelSettings_r73q7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5lij8")
+}
+
+[node name="CrossHair" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.021
+anchor_bottom = 0.037
+offset_left = 576.0
+offset_top = 324.0
+offset_right = 553.808
+offset_bottom = 302.024
+texture = ExtResource("3_wgp0t")
+expand_mode = 1

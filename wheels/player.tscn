@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://be5xnso5v3bau"]
+[gd_scene load_steps=6 format=3 uid="uid://be5xnso5v3bau"]
 
 [ext_resource type="Script" path="res://wheels/player.gd" id="1_cb3c6"]
 [ext_resource type="PackedScene" uid="uid://6km7ww2720qn" path="res://gui/testing/test_gui.tscn" id="2_ixajq"]
+[ext_resource type="PackedScene" uid="uid://c01y6v0a3xeyu" path="res://gui/player_ui/player_ui.tscn" id="3_4smss"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1i3ag"]
-radius = 0.25
-height = 0.5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_35ot5"]
 radius = 0.01
@@ -15,22 +14,21 @@ script = ExtResource("1_cb3c6")
 
 [node name="TestGui" parent="." instance=ExtResource("2_ixajq")]
 
-[node name="Head_Shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-shape = SubResource("CapsuleShape3D_1i3ag")
+[node name="PlayerUi" parent="." instance=ExtResource("3_4smss")]
 
-[node name="Feet_Shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.381442, 0)
 shape = SubResource("CapsuleShape3D_1i3ag")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.729005, -0.321903)
 current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, -0.334184)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -0.0102798, -0.999947, 0, 0.999947, -0.0102798, -0.00848517, 0.0103027, -1.47777)
+visible = false
 mesh = SubResource("CapsuleMesh_35ot5")
 skeleton = NodePath("../..")
