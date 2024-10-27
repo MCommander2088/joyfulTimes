@@ -1,5 +1,7 @@
 extends RigidBody3D
 
+@onready var CollisionShape = $CollisionShape3D
+
 const GRAVITY_SCALE = 1.0
 
 func _ready() -> void:
@@ -7,3 +9,6 @@ func _ready() -> void:
 
 func simplebox_set_gravity_scale(SCALE:float):
 	self.gravity_scale = float(SCALE)
+
+func get_collisionshape_size():
+	return CollisionShape.scale

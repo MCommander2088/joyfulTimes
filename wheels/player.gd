@@ -14,13 +14,14 @@ var mouse_position:Vector2
 
 var collider = null
 var is_catching = false
-const pick_distance:float = 1.5
+var pick_distance:float = 1.0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# 启用 RayCast
 	RayCast.enabled = true
 
+# Change TestGUI Label
 func _process(delta: float) -> void:
 	TestingLabel.text = "position: x:{0} y:{1} z:{2}\nrotation: x:{3} y:{4} z:{5}\nRayCast is Catching: {6}\nBool IS_CATCHING: {7}".format([position.x,position.y,position.z,Camera.rotation.x,rotation.y,rotation.z,collider,is_catching])
 
@@ -34,8 +35,14 @@ func _physics_process(delta: float) -> void:
 			is_catching = not is_catching
 		elif RayCast.get_collider() != null:
 			if collider_statue(RayCast.get_collider()):
-				audioplayer1.play()
 				collider = RayCast.get_collider()
+				print("\nAn Object is Picked.Information:")
+				print("Camera Position:"+str(Camera.position))
+				print("Type of Collider:"+str(typeof(collider)))
+				print("Collider Position:"+str(collider.global_transform.origin))
+				pick_distance = get_collider_distance(collider)/2
+				print("Pick Distance:"+str(pick_distance))
+				audioplayer1.play()
 				is_catching = not is_catching
 	
 	# Add the gravity.
@@ -92,13 +99,12 @@ func _physics_process(delta: float) -> void:
 		# 获取摄像机的前方向量（通常是它的Z轴负方向，取决于摄像机的朝向）  
 		# 注意：这里我们假设摄像机是面向玩家的，即它的-Z轴是前方  
 		# 在Godot中，摄像机的forward方向通常是它的-Z轴  
-		var camera_forward = -Camera.global_transform.basis.z  # 获取Z轴并取反，因为Godot中摄像机面向-Z  
+		var camera_forward:Vector3 = -Camera.global_transform.basis.z  # 获取Z轴并取反，因为Godot中摄像机面向-Z  
 		  
 		# 计算目标位置：摄像机位置 + 摄像机前方向量 * 距离  
-		var target_position = camera_position + camera_forward * pick_distance  
+		var target_position:Vector3 = camera_position + camera_forward.normalized() * pick_distance
 		
 		var target_rotation:Vector3 = target_position-collider.position
-		
 		# 现在你可以使用target_position来做一些事情，比如移动一个节点到那里  
 		# 例如，如果你有一个StaticBody3D节点，你可以这样设置它的位置：  
 		collider.global_transform.origin += (target_position - collider.global_transform.origin)*0.1
@@ -116,7 +122,13 @@ func b2i(boolvar) -> int:#bool to int
 		return 0
 
 func collider_statue(collider):
-	if collider != null and not collider is CharacterBody3D and not collider is StaticBody3D:
+	if collider != null and not collider is CharacterBody3D and not collider is StaticBody3D and not collider is CollisionShape3D:
 		return true
 	else:
 		return false
+
+func get_collider_distance(object) -> float:
+	var distance = (object.position - Camera.position).length()
+	if distance <= 2:
+		distance = 2
+	return distance
